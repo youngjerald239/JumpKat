@@ -6,6 +6,7 @@ class Level:
         self.display_surface = surface
 
         terrain_layout = import_csv_layout(level_data['terrain'])
+        print(terrain_layout)
 
     def run(self):
         # run the full game
