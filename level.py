@@ -89,6 +89,10 @@ class Level:
         self.terrain_sprites.draw(self.display_surface)
         self.terrain_sprites.update(self.world_shift)
 
+        # enemy
+        self.enemy_sprites.draw(self.display_surface)
+        self.enemy_sprites.update(self.world_shift)
+
         # crates
         self.crate_sprites.draw(self.display_surface)
         self.crate_sprites.update(self.world_shift)
@@ -105,8 +109,6 @@ class Level:
         self.fg_palm_sprites.draw(self.display_surface)
         self.fg_palm_sprites.update(self.world_shift)
 
-        # enemy
-        self.enemy_sprites.draw(self.display_surface)
-        self.enemy_sprites.update(self.world_shift)
+        
 
         
