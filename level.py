@@ -38,6 +38,10 @@ class Level:
         enemy_layout = import_csv_layout(level_data['enemies'])
         self.enemy_sprites = self.create_tile_group(enemy_layout,'enemies')
 
+        # constraints
+        constraint_layout = import_csv_layout(level_data['constraints'])
+        self.constraint_sprites = self.create_tile_group(constraint_layout,'constraints')
+
     def create_tile_group(self,layout,type):
         sprite_group = pygame.sprite.Group()
 
@@ -73,10 +77,18 @@ class Level:
 
                     if type == 'enemies':
                         sprite = Enemy(tile_size,x,y)
+
+                    if type == 'constraints':
+                        sprite = Tile(tile_size,x,y)
                     
                     sprite_group.add(sprite)
 
         return sprite_group
+
+    def enemy_collision_reverse(self):
+        for enemy in self.enemy_sprites.sprites():
+            if pygame.sprite.spritecollide(enemy,self.constraint_sprites,False):
+                enemy.reverse()
 
     def run(self):
         # run the full game
@@ -89,8 +101,10 @@ class Level:
         self.terrain_sprites.draw(self.display_surface)
         self.terrain_sprites.update(self.world_shift)
 
-        # enemy
+        # enemy and constraints
         self.enemy_sprites.draw(self.display_surface)
+        self.constraint_sprites.update(self.world_shift)
+        self.enemy_collision_reverse()
         self.enemy_sprites.update(self.world_shift)
 
         # crates
