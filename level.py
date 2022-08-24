@@ -27,4 +27,5 @@ class Level:
 
     def run(self):
         # run the full game
-        self.terrain_sprites.draw()
+        self.terrain_sprites.draw(self.display_surface)
+        self.terrain_sprites.update(1)
