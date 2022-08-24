@@ -1,10 +1,11 @@
 import pygame
 from support import import_csv_layout, import_cut_graphics
-from settings import tile_size,screen_height
+from settings import tile_size,screen_height,screen_width
 from tiles import Tile, StaticTile, Crate, Coin,Palm
 from enemy import Enemy
 from decoration import Sky,Water,Clouds
 from player import Player
+from particles import ParticleEffect
 
 class Level:
     def __init__(self,level_data,surface):
@@ -17,6 +18,9 @@ class Level:
         self.player = pygame.sprite.GroupSingle()
         self.goal = pygame.sprite.GroupSingle()
         self.player_setup(player_layout)
+
+        # dust
+        self.dust_sprite = pygame.sprite.GroupSingle()
 
         #terrain setup
         terrain_layout = import_csv_layout(level_data['terrain'])
@@ -168,6 +172,21 @@ class Level:
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
 
+    def scroll_x(self):
+        player = self.player.sprite
+        player_x = player.rect.centerx
+        direction_x = player.direction.x
+
+        if player_x < screen_width / 4 and direction_x < 0:
+            self.world_shift = 8
+            player.speed = 0
+        elif player_x > screen_width / 4 and direction_x > 0:
+            self.world_shift = -8
+            player.speed = 0
+        else:
+            self.world_shift = 0
+            player.speed = 8
+
     def run(self):
         # run the full game
 
@@ -209,6 +228,7 @@ class Level:
         self.player.draw(self.display_surface)
         self.horizontil_movement_collision()
         self.vertical_movement_collision()
+        self.scroll_x()
         self.player.update()
         self.goal.draw(self.display_surface)
         self.goal.update(self.world_shift)
