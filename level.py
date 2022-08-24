@@ -7,7 +7,7 @@ class Level:
     def __init__(self,level_data,surface):
         # general setup
         self.display_surface = surface
-        self.world_shift = -5
+        self.world_shift = 0
 
         #terrain setup
         terrain_layout = import_csv_layout(level_data['terrain'])
