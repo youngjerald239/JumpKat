@@ -4,6 +4,7 @@ from settings import tile_size,screen_height
 from tiles import Tile, StaticTile, Crate, Coin,Palm
 from enemy import Enemy
 from decoration import Sky,Water,Clouds
+from player import Player
 
 class Level:
     def __init__(self,level_data,surface):
@@ -53,7 +54,7 @@ class Level:
         self.sky = Sky(6)
         level_width = len(terrain_layout[0]) * tile_size
         self.water = Water(screen_height - 50,level_width)
-        self.clouds = Clouds(400,level_width,20)
+        self.clouds = Clouds(400,level_width,30)
 
     def create_tile_group(self,layout,type):
         sprite_group = pygame.sprite.Group()
@@ -104,7 +105,8 @@ class Level:
                 x = col_index * tile_size
                 y = row_index * tile_size
                 if val == '0':
-                    print('player goes here')
+                    sprite = Player((x,y),self.display_surface,self.create_jump_particles)
+                    self.player.add(sprite)
                 if val == '1':
                     hat_surface = pygame.image.load('./graphics/character/hat.png').convert_alpha()
                     sprite = StaticTile(tile_size,x,y,hat_surface)
@@ -114,6 +116,14 @@ class Level:
         for enemy in self.enemy_sprites.sprites():
             if pygame.sprite.spritecollide(enemy,self.constraint_sprites,False):
                 enemy.reverse()
+
+    def create_jump_particles(self,pos):
+        if self.player.sprite.facing_right:
+            pos -= pygame.math.Vector2(10,5)
+        else:
+            pos += pygame.math.Vector2(10,-5)
+        jump_particle_sprite = ParticleEffect(pos,'jump')
+        self.dust_sprite.add(jump_particle_sprite)
 
     def run(self):
         # run the full game
@@ -153,6 +163,8 @@ class Level:
         self.fg_palm_sprites.update(self.world_shift)
 
         # player sprites
+        self.player.draw(self.display_surface)
+        self.player.update()
         self.goal.draw(self.display_surface)
         self.goal.update(self.world_shift)
 
