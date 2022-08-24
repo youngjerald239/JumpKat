@@ -72,6 +72,12 @@ class Level:
 
     def run(self):
         # run the full game
+
+        # background palms
+        self.bg_palm_sprites.draw(self.display_surface)
+        self.bg_palm_sprites.update(self.world_shift)
+
+        # terrain
         self.terrain_sprites.draw(self.display_surface)
         self.terrain_sprites.update(self.world_shift)
 
@@ -91,6 +97,4 @@ class Level:
         self.fg_palm_sprites.draw(self.display_surface)
         self.fg_palm_sprites.update(self.world_shift)
 
-        # background palms
-        self.bg_palm_sprites.draw(self.display_surface)
-        self.bg_palm_sprites.update(self.world_shift)
+        
