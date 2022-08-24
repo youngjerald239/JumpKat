@@ -115,6 +115,9 @@ class Level:
     def run(self):
         # run the full game
 
+        #decoration
+        self.sky.draw(self.display_surface)
+
         # background palms
         self.bg_palm_sprites.draw(self.display_surface)
         self.bg_palm_sprites.update(self.world_shift)
@@ -149,6 +152,5 @@ class Level:
         self.goal.draw(self.display_surface)
         self.goal.update(self.world_shift)
 
-        #decoration
-        self.sky.draw(self.display_surface)
+        
         
