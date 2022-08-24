@@ -48,8 +48,8 @@ class Level:
                         sprite = Crate(tile_size,x,y)
 
                     if type == 'coins':
-                        sprite = Coin(tile_size,x,y,'./graphics/coins/gold')
-
+                        if val == '0': sprite = Coin(tile_size,x,y,'./graphics/coins/gold')
+                        if val == '1': sprite = Coin(tile_size,x,y,'./graphics/coins/silver')
                     sprite_group.add(sprite)
 
         return sprite_group
