@@ -56,7 +56,7 @@ class Level:
                         if val == '1': sprite = Coin(tile_size,x,y,'./graphics/coins/silver')
                     
                     if type == 'fg_palms':
-                        sprite = Palm(tile_size,x,y,'./graphics/terrain/palm_small')
+                        sprite = Palm(tile_size,x,y,'./graphics/terrain/palm_small',38)
                     
                     sprite_group.add(sprite)
 
