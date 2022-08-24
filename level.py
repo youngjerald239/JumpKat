@@ -81,14 +81,14 @@ class Level:
         self.terrain_sprites.draw(self.display_surface)
         self.terrain_sprites.update(self.world_shift)
 
-        # grass
-        self.grass_sprites.draw(self.display_surface)
-        self.grass_sprites.update(self.world_shift)
-
         # crates
         self.crate_sprites.draw(self.display_surface)
         self.crate_sprites.update(self.world_shift)
 
+        # grass
+        self.grass_sprites.draw(self.display_surface)
+        self.grass_sprites.update(self.world_shift)
+        
         # coins
         self.coin_sprites.draw(self.display_surface)
         self.coin_sprites.update(self.world_shift)
