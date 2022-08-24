@@ -66,3 +66,7 @@ class Level:
         # crates
         self.crate_sprites.draw(self.display_surface)
         self.crate_sprites.update(self.world_shift)
+
+        # coins
+        self.coin_sprites.draw(self.display_surface)
+        self.coin_sprites.update(self.world_shift)
