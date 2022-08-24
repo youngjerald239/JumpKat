@@ -2,6 +2,7 @@ import pygame
 from support import import_csv_layout, import_cut_graphics
 from settings import tile_size
 from tiles import Tile, StaticTile, Crate, Coin,Palm
+from enemy import Enemy
 
 class Level:
     def __init__(self,level_data,surface):
@@ -32,6 +33,10 @@ class Level:
         # background palms
         bg_palm_layout = import_csv_layout(level_data['bg_palms'])
         self.bg_palm_sprites = self.create_tile_group(bg_palm_layout,'bg_palms')
+
+        # enemy
+        enemy_layout = import_csv_layout(level_data['enemies'])
+        self.enemy_sprites = self.create_tile_group(enemy_layout,'enemies')
 
     def create_tile_group(self,layout,type):
         sprite_group = pygame.sprite.Group()
@@ -65,6 +70,9 @@ class Level:
 
                     if type == 'bg_palms':
                         sprite = Palm(tile_size,x,y,'./graphics/terrain/palm_bg',64)
+
+                    if type == 'enemies':
+                        sprite = Enemy(tile_size,x,y)
                     
                     sprite_group.add(sprite)
 
@@ -96,5 +104,9 @@ class Level:
         # foreground palms
         self.fg_palm_sprites.draw(self.display_surface)
         self.fg_palm_sprites.update(self.world_shift)
+
+        # enemy
+        self.enemy_sprites.draw(self.display_surface)
+        self.enemy_sprites.update(self.world_shift)
 
         
