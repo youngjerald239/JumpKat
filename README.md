@@ -2,7 +2,7 @@
 
 Simple game coding in Python and Pygame
 Code has collision and animation for jump, idle, run, and fall.
-# Jump around a blank level with JumpKat! 
+# Jump around a fully detailed level with JumpKat! 
 Game assets creator link: <Link> "https://pzuh.itch.io/"</Link>
 <img src="https://i.imgur.com/PVatOem.png" title="source: imgur.com" /></a>
 
@@ -19,4 +19,10 @@ To see if it works, run one of the included examples:
 python3 -m pygame.examples.aliens
 If it works, you are ready to go! If not there are more detailed, platform-specific instructions located here: <Link>"https://www.pygame.org/wiki/GettingStarted"</Link>.
 
-After installing and downloading the files, simpy run python main.py in terminal.
+# Download Tiled to design 2d levels!
+
+<img src="https://www.mapeditor.org/img/tiled-logo-header.png"/>
+
+<Link>"https://www.mapeditor.org/"</Link>
+
+After installing and downloading the files(Please make sure to save your design in Tiled and Export as csv to levels folder!!), run python main.py in terminal.
