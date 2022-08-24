@@ -12,6 +12,7 @@ class Level:
         # general setup
         self.display_surface = surface
         self.world_shift = 0
+        self.current_x = None
 
         # player
         player_layout = import_csv_layout(level_data['player'])
@@ -21,6 +22,7 @@ class Level:
 
         # dust
         self.dust_sprite = pygame.sprite.GroupSingle()
+        self.player_on_ground = False
 
         #terrain setup
         terrain_layout = import_csv_layout(level_data['terrain'])
@@ -187,6 +189,21 @@ class Level:
             self.world_shift = 0
             player.speed = 8
 
+    def get_player_on_ground(self):
+        if self.player.sprite.on_ground:
+            self.player_on_ground = True
+        else:
+            self.player_on_ground = False
+
+    def creat_landing_dust(self):
+        if not self.player_on_ground and self.player.sprite.on_ground and not self.dust_sprite.sprites():
+            if self.player.sprite.facing_right:
+                offset = pygame.math.Vector2(10,15)
+            else:
+                offset = pygame.math.Vector2(-10,15)
+            fall_dust_particle = ParticleEffect(self.player.sprite.rect.midbottom - offset,'land')
+            self.dust_sprite.add(fall_dust_particle)
+
     def run(self):
         # run the full game
 
@@ -224,10 +241,16 @@ class Level:
         self.fg_palm_sprites.draw(self.display_surface)
         self.fg_palm_sprites.update(self.world_shift)
 
+        # dust particles
+        self.dust_sprite.draw(self.display_surface)
+        self.dust_sprite.update(self.world_shift)
+
         # player sprites
         self.player.draw(self.display_surface)
         self.horizontil_movement_collision()
+        self.get_player_on_ground()
         self.vertical_movement_collision()
+        self.creat_landing_dust()
         self.scroll_x()
         self.player.update()
         self.goal.draw(self.display_surface)
