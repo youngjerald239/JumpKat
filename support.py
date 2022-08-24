@@ -1,6 +1,12 @@
 from csv import reader
 from settings import tile_size
+from os import walk
 import pygame
+
+
+def import_folder(path):
+    for information in walk(path):
+        print(information)
 
 def import_csv_layout(path):
     terrain_map = []
