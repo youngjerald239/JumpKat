@@ -6,6 +6,8 @@ Code has collision and animation for jump, idle, run, and fall.
 Game assets creator link: <Link> "https://pzuh.itch.io/"</Link>
 <img src="https://i.imgur.com/PVatOem.png" title="source: imgur.com" /></a>
 
+<img src="https://i.imgur.com/0mtuT7P.png" title="source: imgur.com" /></a>
+
 # Installing Python
 <img src="https://code.visualstudio.com/assets/docs/python/tutorial/python-extension-marketplace.png"/>
 Install Python: In Vs code download the Python Exstention Licensed by Microsoft.
