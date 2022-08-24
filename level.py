@@ -10,7 +10,7 @@ class Level:
     def __init__(self,level_data,surface):
         # general setup
         self.display_surface = surface
-        self.world_shift = -3
+        self.world_shift = 0
 
         # player
         player_layout = import_csv_layout(level_data['player'])
@@ -125,6 +125,49 @@ class Level:
         jump_particle_sprite = ParticleEffect(pos,'jump')
         self.dust_sprite.add(jump_particle_sprite)
 
+    def horizontil_movement_collision(self):
+        player = self.player.sprite
+        player.rect.x += player.direction.x * player.speed
+        # checks for collisions on left or right
+        collidable_sprites = self.terrain_sprites.sprites() + self.crate_sprites.sprites() + self.fg_palm_sprites.sprites()
+        for sprite in collidable_sprites: 
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.x < 0:
+                    player.rect.left = sprite.rect.right
+                    player.on_left = True
+                    self.current_x = player.rect.left
+                elif player.direction.x > 0:
+                    player.rect.right = sprite.rect.left
+                    player.on_right = True
+                    self.current_x = player.rect.right
+
+        if player.on_left and (player.rect.left < self.current_x or player.direction.x >= 0):
+            player.on_left = False
+        if player.on_right and (player.rect.right < self.current_x or player.direction.x <= 0):
+            player.on_right = False
+
+    def vertical_movement_collision(self):
+        player = self.player.sprite
+        player.apply_gravity()
+
+        # checks for verticle collisions 
+        collidable_sprites = self.terrain_sprites.sprites() + self.crate_sprites.sprites() + self.fg_palm_sprites.sprites()
+        for sprite in collidable_sprites: 
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.y > 0:
+                    player.rect.bottom = sprite.rect.top
+                    player.direction.y = 0
+                    player.on_ground = True
+                elif player.direction.y < 0:
+                    player.rect.top = sprite.rect.bottom
+                    player.direction.y = 0
+                    player.on_ceiling = True
+
+        if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
+            player.on_ground = False
+        if player.on_ceiling and player.direction.y > 0:
+            player.on_ceiling = False
+
     def run(self):
         # run the full game
 
@@ -164,6 +207,8 @@ class Level:
 
         # player sprites
         self.player.draw(self.display_surface)
+        self.horizontil_movement_collision()
+        self.vertical_movement_collision()
         self.player.update()
         self.goal.draw(self.display_surface)
         self.goal.update(self.world_shift)
