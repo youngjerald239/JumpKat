@@ -237,10 +237,6 @@ class Level:
         self.coin_sprites.draw(self.display_surface)
         self.coin_sprites.update(self.world_shift)
 
-        # foreground palms
-        self.fg_palm_sprites.draw(self.display_surface)
-        self.fg_palm_sprites.update(self.world_shift)
-
         # dust particles
         self.dust_sprite.draw(self.display_surface)
         self.dust_sprite.update(self.world_shift)
@@ -255,6 +251,10 @@ class Level:
         self.player.update()
         self.goal.draw(self.display_surface)
         self.goal.update(self.world_shift)
+
+        # foreground palms
+        self.fg_palm_sprites.draw(self.display_surface)
+        self.fg_palm_sprites.update(self.world_shift)
 
         # water
         self.water.draw(self.display_surface,self.world_shift)
