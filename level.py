@@ -6,13 +6,20 @@ from enemy import Enemy
 from decoration import Sky,Water,Clouds
 from player import Player
 from particles import ParticleEffect
+from game_data import levels
 
 class Level:
-    def __init__(self,level_data,surface):
+    def __init__(self,current_level,surface,create_overworld):
         # general setup
         self.display_surface = surface
         self.world_shift = 0
         self.current_x = None
+
+        # overworld connection
+        self.create_overworld = create_overworld
+        self.current_level = current_level
+        level_data = levels[self.current_level]
+        self.new_max_level = level_data['unlock']
 
         # player
         player_layout = import_csv_layout(level_data['player'])

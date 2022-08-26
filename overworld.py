@@ -3,6 +3,7 @@ from turtle import end_fill
 import pygame
 from game_data import levels
 
+
 class Node(pygame.sprite.Sprite):
     def __init__(self,pos,status,icon_speed):
         super().__init__()
