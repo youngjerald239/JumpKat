@@ -95,8 +95,8 @@ class Level:
                         sprite = Crate(tile_size,x,y)
 
                     if type == 'coins':
-                        if val == '0': sprite = Coin(tile_size,x,y,'./graphics/coins/gold')
-                        if val == '1': sprite = Coin(tile_size,x,y,'./graphics/coins/silver')
+                        if val == '0': sprite = Coin(tile_size,x,y,'./graphics/coins/gold',10)
+                        if val == '1': sprite = Coin(tile_size,x,y,'./graphics/coins/silver',1)
                     
                     if type == 'fg_palms':
                         if val == '0': sprite = Palm(tile_size,x,y,'./graphics/terrain/palm_small',38)
@@ -226,7 +226,7 @@ class Level:
         collided_coins = pygame.sprite.spritecollide(self.player.sprite,self.coin_sprites,True)
         if collided_coins:
             for coin in collided_coins:
-                self.change_coins(1)
+                self.change_coins(coin.value)
 
     def run(self):
         # run the full game
