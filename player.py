@@ -132,14 +132,20 @@ class Player(pygame.sprite.Sprite):
         if not self.invincible:
             self.change_health(-10)
             self.invincible = True
-            self.hurt_time = pygame.time.get_ticks
+            self.hurt_time = pygame.time.get_ticks()
+
+    def invincibility_timer(self):
+        if self.invincible:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.hurt_time >= self.invincibility_duration:
+                self.invincible = False
 
     def update(self):
         self.get_input()     
         self.get_status()
         self.animate()
         self.run_dust_animation()
-        
+        self.invincibility_timer()
         
         
         
