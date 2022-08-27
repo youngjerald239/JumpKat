@@ -2,19 +2,31 @@ from tracemalloc import start
 from turtle import end_fill
 import pygame
 from game_data import levels
+from support import import_folder
 
 
 class Node(pygame.sprite.Sprite):
-    def __init__(self,pos,status,icon_speed):
+    def __init__(self,pos,status,icon_speed,path):
         super().__init__()
-        self.image = pygame.Surface((100,80))
+        self.frames = import_folder(path)
+        self.frame_index = 0       
+        self.image = self.frames[self.frame_index]
         if status == 'available':
-            self.image.fill('red')
+            self.staus = 'available'
         else:
-            self.image.fill('grey')
+            self.status = 'locked'
         self.rect = self.image.get_rect(center = pos)
 
         self.detection_zone = pygame.Rect(self.rect.centerx -(icon_speed/2),self.rect.centery -(icon_speed/2),icon_speed,icon_speed)
+
+    def animate(self):
+        self.frame_index += 0.15
+        if self.frame_index >= len(self.frames):
+            self.frame_index = 0
+        self.image = self.frames[int(self.frame_index)]
+
+    def update(self):
+        self.animate()
 
 class Icon(pygame.sprite.Sprite):
     def __init__(self,pos):
@@ -49,10 +61,10 @@ class Overworld:
 
         for index, node_data in enumerate(levels.values()):
             if index <= self.max_level:
-                node_sprite = Node(node_data['node_pos'],'available',self.speed)
+                node_sprite = Node(node_data['node_pos'],'available',self.speed,node_data['node_graphics'])
                 self.nodes.add(node_sprite)
             else:
-                node_sprite = Node(node_data['node_pos'],'locked',self.speed)
+                node_sprite = Node(node_data['node_pos'],'locked',self.speed,node_data['node_graphics'])
             self.nodes.add(node_sprite)
 
     def draw_paths(self):
