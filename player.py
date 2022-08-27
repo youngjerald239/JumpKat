@@ -39,6 +39,10 @@ class Player(pygame.sprite.Sprite):
         self.invincibility_duration = 500
         self.hurt_time = 0
 
+        # audio
+        self.jump_sound = pygame.mixer.Sound('./audio/mixkit-sweet-kitty-meow-93.wav')
+        self.hit_sound = pygame.mixer.Sound('./audio/mixkit-little-cat-pain-meow-87.wav')
+
     def import_character_assets(self):
         character_path = './graphics/character/'
         self.animations = {'idle':[], 'run':[], 'jump':[], 'fall':[]}
@@ -124,6 +128,7 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         self.direction.y = self.jump_speed
+        self.jump_sound.play()
 
     def get_damage(self):
         if not self.invincible:
