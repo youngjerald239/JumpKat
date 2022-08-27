@@ -34,6 +34,9 @@ class Player(pygame.sprite.Sprite):
 
         # health management
         self.change_health = change_health
+        self.invincible = False
+        self.invincibility_duration = 400
+        self.hurt_time = 0
 
     def import_character_assets(self):
         character_path = './graphics/character/'
@@ -126,7 +129,10 @@ class Player(pygame.sprite.Sprite):
         self.direction.y = self.jump_speed
 
     def get_damage(self):
-        self.change_health(-10)
+        if not self.invincible:
+            self.change_health(-10)
+            self.invincible = True
+            self.hurt_time = pygame.time.get_ticks
 
     def update(self):
         self.get_input()     
