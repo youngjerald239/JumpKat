@@ -35,6 +35,8 @@ class Game:
         else:
             self.level.run()
             self.ui.show_health(50,100)
+            self.ui.show_coins(12)
+
 
 # Pygame setup
 pygame.init()
