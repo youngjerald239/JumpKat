@@ -72,6 +72,8 @@ class Player(pygame.sprite.Sprite):
             self.image.set_alpha(alpha)
         else:
             self.image.set_alpha(255)
+
+        self.rect = self.image.get_rect(midbottom = self.rect.midbottom)
         
     def run_dust_animation(self):
         if self.status == 'run' and self.on_ground:
