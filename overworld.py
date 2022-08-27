@@ -37,7 +37,7 @@ class Icon(pygame.sprite.Sprite):
     def __init__(self,pos):
         super().__init__()
         self.pos = pos
-        self.image = pygame.image.load('./graphics/overworld/hat.png')
+        self.image = pygame.image.load('./graphics/overworld/hat.png').convert_alpha()
         self.rect = self.image.get_rect(center = pos)
 
     def update(self):
@@ -74,8 +74,9 @@ class Overworld:
             self.nodes.add(node_sprite)
 
     def draw_paths(self):
-        points = [node['node_pos'] for index,node in enumerate(levels.values()) if index <= self.max_level]
-        pygame.draw.lines(self.display_surface,'#a04f45',False,points,6)
+        if self.max_level > 0:
+            points = [node['node_pos'] for index,node in enumerate(levels.values()) if index <= self.max_level]
+            pygame.draw.lines(self.display_surface,'#a04f45',False,points,6)
 
     def setup_icon(self):
         self.icon = pygame.sprite.GroupSingle()
