@@ -211,6 +211,14 @@ class Level:
             fall_dust_particle = ParticleEffect(self.player.sprite.rect.midbottom - offset,'land')
             self.dust_sprite.add(fall_dust_particle)
 
+    def check_death(self):
+        if self.player.sprite.rect.top > screen_height:
+            self.create_overworld(self.current_level,0)
+
+    def check_win(self):
+        if pygame.sprite.spritecollide(self.player.sprite,self.goal,False):
+            self.create_overworld(self.current_level,self.new_max_level)
+
     def run(self):
         # run the full game
 
@@ -262,6 +270,9 @@ class Level:
         # foreground palms
         self.fg_palm_sprites.draw(self.display_surface)
         self.fg_palm_sprites.update(self.world_shift)
+
+        self.check_death()
+        self.check_win()
 
         # water
         self.water.draw(self.display_surface,self.world_shift)
