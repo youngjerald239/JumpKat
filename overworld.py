@@ -12,7 +12,7 @@ class Node(pygame.sprite.Sprite):
         self.frame_index = 0       
         self.image = self.frames[self.frame_index]
         if status == 'available':
-            self.staus = 'available'
+            self.status = 'available'
         else:
             self.status = 'locked'
         self.rect = self.image.get_rect(center = pos)
@@ -26,7 +26,8 @@ class Node(pygame.sprite.Sprite):
         self.image = self.frames[int(self.frame_index)]
 
     def update(self):
-        self.animate()
+        if self.status == 'available':
+            self.animate()
 
 class Icon(pygame.sprite.Sprite):
     def __init__(self,pos):
@@ -69,7 +70,7 @@ class Overworld:
 
     def draw_paths(self):
         points = [node['node_pos'] for index,node in enumerate(levels.values()) if index <= self.max_level]
-        pygame.draw.lines(self.display_surface,'red',False,points,6)
+        pygame.draw.lines(self.display_surface,'#a04f45',False,points,6)
 
     def setup_icon(self):
         self.icon = pygame.sprite.GroupSingle()
@@ -113,6 +114,8 @@ class Overworld:
         self.input()
         self.update_icon_pos()
         self.icon.update()
+        self.nodes.update()
+
         self.draw_paths()
         self.nodes.draw(self.display_surface)
         self.icon.draw(self.display_surface)
