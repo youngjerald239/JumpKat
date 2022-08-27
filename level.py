@@ -9,7 +9,7 @@ from particles import ParticleEffect
 from game_data import levels
 
 class Level:
-    def __init__(self,current_level,surface,create_overworld):
+    def __init__(self,current_level,surface,create_overworld,change_coins):
         # general setup
         self.display_surface = surface
         self.world_shift = 0
@@ -26,6 +26,9 @@ class Level:
         self.player = pygame.sprite.GroupSingle()
         self.goal = pygame.sprite.GroupSingle()
         self.player_setup(player_layout)
+
+        # user interface
+        self.change_coins = change_coins
 
         # dust
         self.dust_sprite = pygame.sprite.GroupSingle()
@@ -219,6 +222,12 @@ class Level:
         if pygame.sprite.spritecollide(self.player.sprite,self.goal,False):
             self.create_overworld(self.current_level,self.new_max_level)
 
+    def check_coin_collisions(self):
+        collided_coins = pygame.sprite.spritecollide(self.player.sprite,self.coin_sprites,True)
+        if collided_coins:
+            for coin in collided_coins:
+                self.change_coins(1)
+
     def run(self):
         # run the full game
 
@@ -273,6 +282,8 @@ class Level:
 
         self.check_death()
         self.check_win()
+
+        self.check_coin_collisions()
 
         # water
         self.water.draw(self.display_surface,self.world_shift)
