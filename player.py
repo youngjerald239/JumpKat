@@ -41,6 +41,7 @@ class Player(pygame.sprite.Sprite):
 
         # audio
         self.jump_sound = pygame.mixer.Sound('./audio/mixkit-sweet-kitty-meow-93.wav')
+        self.jump_sound.set_volume(0.5)
         self.hit_sound = pygame.mixer.Sound('./audio/mixkit-little-cat-pain-meow-87.wav')
 
     def import_character_assets(self):
