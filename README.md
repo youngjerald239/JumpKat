@@ -28,3 +28,12 @@ If it works, you are ready to go! If not there are more detailed, platform-speci
 <Link>"https://www.mapeditor.org/"</Link>
 
 After installing and downloading the files(Please make sure to save your design in Tiled and Export as csv to levels folder!!), run python main.py in terminal.
+
+# Credit for Game assets and music
+# Music
+Tropical Yearnings by Ron Gelinas Chillout Lounge | https://open.spotify.com/artist/03JYfsI9Ke7JFuxHD239m2
+Music promoted by https://www.free-stock-music.com
+
+https://soundcloud.com/user-854038766/tropical-game-background-free-download
+
+# Game assets
