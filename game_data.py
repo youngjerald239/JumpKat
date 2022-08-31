@@ -79,8 +79,22 @@ level_5 = {
         'player': './levels/5/level_5_player.csv',
         'grass': './levels/5/level_5_grass.csv',
         'node_pos': (1050,400),
-        'unlock':5,
+        'unlock':6,
         'node_graphics':'./graphics/overworld/5'}
+
+level_6 = {
+        'terrain': './levels/6/level_6_terrain.csv',
+        'coins': './levels/6/level_6_coins.csv',
+        'fg_palms': './levels/6/level_6_fg_palms.csv',
+        'bg_palms': './levels/6/level_6_bg_palms.csv',
+        'crates': './levels/6/level_6_crates.csv',
+        'enemies': './levels/6/level_6_enemies.csv',
+        'constraints': './levels/6/level_6_constraints.csv',
+        'player': './levels/6/level_6_player.csv',
+        'grass': './levels/6/level_6_grass.csv',
+        'node_pos': (1150,210),
+        'unlock':6,
+        'node_graphics':'./graphics/overworld/6'}
 
 levels = {
         0: level_0,
@@ -88,4 +102,5 @@ levels = {
         2: level_2,
         3: level_3,
         4: level_4,
-        5: level_5}    
+        5: level_5,
+        6: level_6}    
